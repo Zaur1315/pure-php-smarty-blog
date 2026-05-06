@@ -1,0 +1,1 @@
+# pure-php-smarty-blog
