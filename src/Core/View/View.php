@@ -23,12 +23,12 @@ final class View
     /**
      * @throws Exception
      */
-    public function render(string $template, array $params = []): void
+    public function render(string $template, array $params = []): string
     {
         foreach ($params as $key => $value) {
             $this->smarty->assign($key, $value);
         }
 
-        $this->smarty->display($template);
+        return $this->smarty->fetch($template);
     }
 }

@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Core\Router;
 
+use App\Core\Http\Request;
+use App\Core\Http\Response;
+
 final class Router
 {
     private array $routes = [];
@@ -22,30 +25,30 @@ final class Router
         $this->routes[$method][$uri] = $action;
     }
 
-    public function dispatch(string $method, string $uri): void
+    public function dispatch(Request $request): Response
     {
-        $uri = strtok($uri, '?');
-
-        $action = $this->routes[$method][$uri] ?? null;
+        $action = $this->routes[$request->method()][$request->uri()] ?? null;
 
         if ($action === null) {
-            http_response_code(404);
-
-            echo '404 Not Found';
-
-            return;
+            return new Response('404 Not Found', 404);
         }
 
         if (is_callable($action)) {
-            call_user_func($action);
+            $response = call_user_func($action);
 
-            return;
+            return $response instanceof Response
+                ? $response
+                : new Response((string)$response);
         }
 
         [$controller, $controllerMethod] = $action;
 
         $controllerInstance = new $controller();
 
-        call_user_func([$controllerInstance, $controllerMethod]);
+        $response = call_user_func([$controllerInstance, $controllerMethod]);
+
+        return $response instanceof Response
+            ? $response
+            : new Response((string)$response);
     }
 }

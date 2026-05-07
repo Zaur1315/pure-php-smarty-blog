@@ -3,17 +3,24 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Core\Http\Response;
 use App\Core\View\View;
+use Smarty\Exception;
 
 final class HomeController
 {
-    public function index(): void
+    /**
+     * @throws Exception
+     */
+    public function index(): Response
     {
         $view = new View();
 
-        $view->render('home/index.tpl', [
-            'title' => 'Home',
-            'message' => 'Home Page',
-        ]);
+        return new Response(
+            $view->render('home/index.tpl', [
+                'title' => 'Home',
+                'message' => 'Welcome to your new application.'
+            ])
+        );
     }
 }
