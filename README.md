@@ -2,6 +2,8 @@
 
 Simple blog application built with pure PHP, MySQL and Smarty.
 
+---
+
 ## Tech Stack
 
 - PHP 8.1+
@@ -11,44 +13,28 @@ Simple blog application built with pure PHP, MySQL and Smarty.
 - Docker
 - No PHP frameworks
 
-## Docker Setup
+---
 
-The project includes a Docker environment with:
-
-- PHP + Apache
-- MySQL
-- phpMyAdmin
-
-### Start project
+## Quick Start
 
 ```bash
 docker compose up -d --build
 ```
 
-#### Application:
+Application:
+http://localhost:8080
 
-```http://localhost:8080```
+phpMyAdmin:
+http://localhost:8081
 
-#### phpMyAdmin:
+---
 
-```http://localhost:8081```
+## Documentation
 
-### Database credentials
-
-```dotenv
-Host: mysql
-Port: 3306
-Database: blog
-User: blog_user
-Password: blog_password
-Root password: root_password
-```
-
-### Stop project
-
-```bash
-docker compose down
-```
+- [docs/docker.md](./docs/docker.md)
+- [docs/mvc.md](./docs/mvc.md)
+- docs/database.md
+- docs/roadmap.md
 
 ## Git Flow
 
