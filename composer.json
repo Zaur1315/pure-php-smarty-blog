@@ -1,0 +1,17 @@
+{
+    "name": "zaur/pure-php-smarty-blog",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "zaur",
+            "email": "zaur.quseynzade@gmail.com"
+        }
+    ],
+    "require": {
+        "smarty/smarty": "^5.8"
+    }
+}
