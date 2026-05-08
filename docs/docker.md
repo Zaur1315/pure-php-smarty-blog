@@ -28,11 +28,12 @@ docker compose up -d --build
 
 ```dotenv
 Host: mysql
-Port: 3306
-Database: blog
+Port: 3308
+Database: pure_php_smarty_blog
 User: blog_user
 Password: blog_password
 Root password: root_password
+Charset: utf8mb4
 ```
 
 ---
