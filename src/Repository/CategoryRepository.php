@@ -23,4 +23,34 @@ final class CategoryRepository
              ORDER BY id ASC'
         );
     }
+
+    public function findWithLatestPosts(int $postsLimit = 3): array
+    {
+        $categories = $this->findAll();
+        $postRepository = new PostRepository();
+
+        foreach ($categories as &$category) {
+            $category['posts'] = $postRepository->findLatestByCategory(
+                (int) $category['id'],
+                $postsLimit
+            );
+        }
+
+        unset($category);
+
+        return $categories;
+    }
+
+    public function findBySlug(string $slug): ?array
+    {
+        return $this->db->fetchOne(
+            'SELECT id, name, description, slug
+             FROM categories
+             WHERE slug = :slug
+            LIMIT 1',
+            [
+                'slug' => $slug,
+            ]
+        );
+    }
 }

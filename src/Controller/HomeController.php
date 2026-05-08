@@ -18,12 +18,11 @@ final class HomeController
         $view = new View();
         $categoryRepository = new CategoryRepository();
 
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findWithLatestPosts();
 
         return new Response(
             $view->render('home/index.tpl', [
                 'title' => 'Home',
-                'message' => 'Welcome to your new application.',
                 'categories' => $categories,
             ])
         );

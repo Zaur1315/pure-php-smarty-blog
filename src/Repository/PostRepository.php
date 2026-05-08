@@ -29,4 +29,28 @@ final class PostRepository
             ]
         );
     }
+
+    public function findByCategorySlug(string $slug): array
+    {
+        return $this->db->fetchAll(
+            'SELECT
+            p.id,
+            p.title,
+            p.slug,
+            p.image,
+            p.description,
+            p.views,
+            p.published_at
+         FROM posts p
+         INNER JOIN post_categories pc
+            ON pc.post_id = p.id
+         INNER JOIN categories c
+            ON c.id = pc.category_id
+         WHERE c.slug = :slug
+         ORDER BY p.published_at DESC',
+            [
+                'slug' => $slug,
+            ]
+        );
+    }
 }
