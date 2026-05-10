@@ -75,4 +75,9 @@ final class Database
 
         return $result === false ? null : $result;
     }
+
+    public function lastInsertId(): string
+    {
+        return $this->connection->lastInsertId();
+    }
 }

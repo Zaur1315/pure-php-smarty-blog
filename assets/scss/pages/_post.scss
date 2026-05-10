@@ -1,0 +1,54 @@
+.post-page__header {
+  margin-bottom: 28px;
+}
+
+.post-page__header h1 {
+  margin-bottom: 16px;
+}
+
+.post-page__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--color-muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.post-page__image {
+  overflow: hidden;
+  margin-bottom: 28px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.post-page__image img {
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+}
+
+.post-page__description {
+  margin-bottom: 28px;
+  font-size: 20px;
+}
+
+.post-page__content {
+  padding: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.post-page__content p:last-child {
+  margin-bottom: 0;
+}
+
+.related-posts {
+  margin-top: 56px;
+}
+
+.related-posts h2 {
+  margin-bottom: 24px;
+}

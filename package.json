@@ -1,0 +1,28 @@
+{
+  "name": "pure-php-smarty-blog",
+  "version": "1.0.0",
+  "description": "Simple blog application built with pure PHP, MySQL and Smarty.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss:build": "sass assets/scss/app.scss public/assets/css/app.css --style=expanded",
+    "scss:watch": "sass assets/scss/app.scss public/assets/css/app.css --watch --style=expanded"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zaur1315/pure-php-smarty-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zaur1315/pure-php-smarty-blog/issues"
+  },
+  "homepage": "https://github.com/Zaur1315/pure-php-smarty-blog#readme",
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}

@@ -62,7 +62,7 @@ final class Router
 
     private function callAction(callable|array $action, Request $request, array $params = []): Response
     {
-        $arguments = array_merge([$request], $params);
+        $arguments = array_merge([$request], array_values($params));
 
         if (is_callable($action)) {
             $response = call_user_func_array($action, $arguments);

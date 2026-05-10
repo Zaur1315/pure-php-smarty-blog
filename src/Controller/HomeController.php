@@ -1,31 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Core\Http\Request;
 use App\Core\Http\Response;
-use App\Core\View\View;
-use App\Repository\CategoryRepository;
-use Smarty\Exception;
 
-final class HomeController
+final readonly class HomeController extends BaseController
 {
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $view = new View();
-        $categoryRepository = new CategoryRepository();
-
-        $categories = $categoryRepository->findWithLatestPosts();
-
-        return new Response(
-            $view->render('home/index.tpl', [
-                'title' => 'Home',
-                'categories' => $categories,
-            ])
-        );
+        return $this->render('home/index.tpl', [
+            'title' => 'Home',
+            'categories' => $this->categoryRepository->findWithLatestPosts(),
+        ]);
     }
 }
