@@ -7,15 +7,18 @@ final readonly class Request
 {
     public function __construct(
         private string $method,
-        private string $uri
-    ) {
+        private string $uri,
+        private array  $query = []
+    )
+    {
     }
 
     public static function createFromGlobals(): self
     {
         return new self(
             $_SERVER['REQUEST_METHOD'] ?? 'GET',
-            $_SERVER['REQUEST_URI'] ?? '/'
+            $_SERVER['REQUEST_URI'] ?? '/',
+            $_GET
         );
     }
 
@@ -26,7 +29,19 @@ final readonly class Request
 
     public function uri(): string
     {
-        return strtok($this->uri, '?') ?: '/';
+        $path = parse_url($this->uri, PHP_URL_PATH);
+
+        return $path === null ? '/' : $path;
+    }
+
+    public function query(string $key, mixed $default = null): mixed
+    {
+        return $this->query[$key] ?? $default;
+    }
+
+    public function queryParam(): array
+    {
+        return $this->query;
     }
 
 }
