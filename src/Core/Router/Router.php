@@ -38,7 +38,7 @@ final class Router
                 continue;
             }
 
-            return $this->callAction($action, $params);
+            return $this->callAction($action, $request, $params);
         }
 
         return new Response('404 Not Found', 404);
@@ -60,10 +60,12 @@ final class Router
         );
     }
 
-    private function callAction(callable|array $action, array $params = []): Response
+    private function callAction(callable|array $action, Request $request, array $params = []): Response
     {
+        $arguments = array_merge([$request], $params);
+
         if (is_callable($action)) {
-            $response = call_user_func_array($action, $params);
+            $response = call_user_func_array($action, $arguments);
 
             return $response instanceof Response
                 ? $response
@@ -76,7 +78,7 @@ final class Router
 
         $response = call_user_func_array(
             [$controllerInstance, $controllerMethod],
-            $params
+            $arguments
         );
 
         return $response instanceof Response

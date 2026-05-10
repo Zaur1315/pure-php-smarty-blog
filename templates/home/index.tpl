@@ -12,7 +12,9 @@
             <ul>
                 {foreach from=$category.posts item=post}
                     <li>
-                        <h3>{$post.title}</h3>
+                        <h3>
+                            <a href="/post/{$post.slug}">{$post.title}</a>
+                        </h3>
                         <p>{$post.description}</p>
                         <small>
                             Views: {$post.views} |

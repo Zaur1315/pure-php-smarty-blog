@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Core\Http\Request;
 use App\Core\Http\Response;
 use App\Core\View\View;
 use App\Repository\CategoryRepository;
@@ -13,7 +14,7 @@ final class HomeController
     /**
      * @throws Exception
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $view = new View();
         $categoryRepository = new CategoryRepository();

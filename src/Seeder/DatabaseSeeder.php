@@ -64,7 +64,7 @@ final class DatabaseSeeder
                 'description3' => 'Simple layout practices with CSS.',
                 'content3' => 'Full article content about CSS.',
                 'views3' => 5,
-                'publishedAt3' => '2026-05-06 10:00:00',
+                'publishedAt3' => '2026-05-06 10:00:00'
             ]
         );
 

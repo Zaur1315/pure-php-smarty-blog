@@ -31,7 +31,7 @@ final class CategoryRepository
 
         foreach ($categories as &$category) {
             $category['posts'] = $postRepository->findLatestByCategory(
-                (int) $category['id'],
+                (int)$category['id'],
                 $postsLimit
             );
         }
@@ -45,9 +45,9 @@ final class CategoryRepository
     {
         return $this->db->fetchOne(
             'SELECT id, name, description, slug
-             FROM categories
-             WHERE slug = :slug
-            LIMIT 1',
+         FROM categories
+         WHERE slug = :slug
+         LIMIT 1',
             [
                 'slug' => $slug,
             ]
