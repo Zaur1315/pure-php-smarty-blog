@@ -60,3 +60,9 @@ as the application entry point.
 - app
 - mysql
 - phpmyadmin
+
+---
+
+[To top](#docker-setup)
+
+[Back to Main](../README.md)

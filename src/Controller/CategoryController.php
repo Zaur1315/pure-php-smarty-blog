@@ -8,6 +8,11 @@ use App\Core\Http\Request;
 use App\Core\Http\Response;
 use App\Repository\PostRepository;
 
+/**
+ * Handles category pages.
+ *
+ * Shows posts from a selected category with sorting and pagination.
+ */
 final readonly class CategoryController extends BaseController
 {
     private const DEFAULT_PAGE = 1;
@@ -23,7 +28,12 @@ final readonly class CategoryController extends BaseController
     }
 
     /**
-     * @throws \Exception
+     * Displays a single category page by slug.
+     *
+     * Loads category data, calculates pagination, and fetches posts
+     * for the current page.
+     *
+     * @throws /Exception
      */
     public function show(Request $request, string $slug): Response
     {

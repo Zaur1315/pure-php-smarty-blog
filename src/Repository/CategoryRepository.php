@@ -6,6 +6,12 @@ namespace App\Repository;
 
 use App\Core\Database\Database;
 
+/**
+ * Repository for blog categories.
+ *
+ * Provides methods for reading category data
+ * and loading categories together with latest posts.
+ */
 final class CategoryRepository
 {
     private Database $db;
@@ -15,6 +21,9 @@ final class CategoryRepository
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Returns all categories ordered by ID.
+     */
     public function findAll(): array
     {
         return $this->db->fetchAll(
@@ -24,6 +33,9 @@ final class CategoryRepository
         );
     }
 
+    /**
+     * Returns all categories with a limited number of latest posts.
+     */
     public function findWithLatestPosts(int $postsLimit = 3): array
     {
         $categories = $this->findAll();
@@ -41,6 +53,9 @@ final class CategoryRepository
         return $categories;
     }
 
+    /**
+     * Finds a single category by its slug.
+     */
     public function findBySlug(string $slug): ?array
     {
         return $this->db->fetchOne(

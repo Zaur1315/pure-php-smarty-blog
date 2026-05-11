@@ -8,6 +8,12 @@ use App\Core\Http\Request;
 use App\Core\Http\Response;
 use App\Repository\PostRepository;
 
+/**
+ * Handles single post pages.
+ *
+ * Loads a post by slug, increments its view counter,
+ * and prepares related posts for display.
+ */
 final readonly class PostController extends BaseController
 {
     public function __construct(
@@ -18,6 +24,8 @@ final readonly class PostController extends BaseController
     }
 
     /**
+     * Displays a single post page by slug.
+     *
      * @throws /Exception
      */
     public function show(Request $request, string $slug): Response

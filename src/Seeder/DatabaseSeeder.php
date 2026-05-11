@@ -6,16 +6,33 @@ namespace App\Seeder;
 
 use App\Core\Database\Database;
 
+/**
+ * Seeds the database with demo blog data.
+ *
+ * Creates:
+ * - categories
+ * - posts
+ * - post/category relations
+ */
 final class DatabaseSeeder
 {
+    /**
+     * Runs the database seeding process.
+     */
     public function run(): void
     {
         $database = Database::getInstance();
 
+        /**
+         * Clears existing data before seeding.
+         */
         $database->query('DELETE FROM post_categories');
         $database->query('DELETE FROM posts');
         $database->query('DELETE FROM categories');
 
+        /**
+         * Demo categories and posts dataset.
+         */
         $categories = [
             [
                 'name' => 'PHP',
@@ -78,6 +95,9 @@ final class DatabaseSeeder
 
         $categoryIds = [];
 
+        /**
+         * Inserts categories and stores their generated IDs.
+         */
         foreach ($categories as $category) {
             $database->query(
                 'INSERT INTO categories (name, description, slug)
@@ -89,12 +109,15 @@ final class DatabaseSeeder
                 ]
             );
 
-            $categoryIds[$category['slug']] = (int) $database->lastInsertId();
+            $categoryIds[$category['slug']] = (int)$database->lastInsertId();
         }
 
         $imageNumber = 1;
         $daysAgo = 0;
 
+        /**
+         * Inserts posts and category relations.
+         */
         foreach ($categories as $category) {
             foreach ($category['posts'] as $index => $title) {
                 $slug = $this->slugify($title);
@@ -130,7 +153,7 @@ final class DatabaseSeeder
                     ]
                 );
 
-                $postId = (int) $database->lastInsertId();
+                $postId = (int)$database->lastInsertId();
 
                 $database->query(
                     'INSERT INTO post_categories (post_id, category_id)
@@ -147,15 +170,19 @@ final class DatabaseSeeder
         }
     }
 
+    /**
+     * Converts a string into a URL-friendly slug.
+     */
     private function slugify(string $value): string
     {
         $value = strtolower($value);
         $value = preg_replace('/[^a-z0-9]+/', '-', $value) ?? '';
-        $value = trim($value, '-');
-
-        return $value;
+        return trim($value, '-');
     }
 
+    /**
+     * Generates a short demo description for a post.
+     */
     private function makeDescription(string $title, string $categoryName): string
     {
         return sprintf(
@@ -165,6 +192,9 @@ final class DatabaseSeeder
         );
     }
 
+    /**
+     * Generates demo HTML content for a post.
+     */
     private function makeContent(string $title, string $categoryName): string
     {
         return sprintf(

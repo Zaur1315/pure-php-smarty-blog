@@ -5,10 +5,10 @@ $(function () {
         return;
     }
 
-    const $slides = $slider.find('.hero-slider__slide');
-    const $dots = $slider.find('.js-hero-slider-dot');
-    const $prev = $slider.find('.js-hero-slider-prev');
-    const $next = $slider.find('.js-hero-slider-next');
+    const $slides = $slider.find('.hero-slider__slide'),
+        $dots = $slider.find('.js-hero-slider-dot'),
+        $prev = $slider.find('.js-hero-slider-prev'),
+        $next = $slider.find('.js-hero-slider-next');
 
     const autoPlayDelay = 5000;
     let currentIndex = 0;

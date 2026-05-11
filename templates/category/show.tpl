@@ -63,7 +63,6 @@
                         </article>
                     {/foreach}
                 </div>
-
                 {if $totalPages > 1}
                     <nav class="pagination">
                         {if $currentPage > 1}

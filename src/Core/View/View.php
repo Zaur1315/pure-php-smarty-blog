@@ -3,9 +3,14 @@ declare(strict_types=1);
 
 namespace App\Core\View;
 
-use Smarty\Exception;
 use Smarty\Smarty;
 
+/**
+ * Simple Smarty view renderer.
+ *
+ * Configures Smarty directories and renders templates
+ * with the provided template variables.
+ */
 final class View
 {
     private Smarty $smarty;
@@ -21,7 +26,11 @@ final class View
     }
 
     /**
-     * @throws Exception
+     * Renders a Smarty template.
+     *
+     * @param array<string, mixed> $params Template variables.
+     *
+     * @throws /Exception
      */
     public function render(string $template, array $params = []): string
     {

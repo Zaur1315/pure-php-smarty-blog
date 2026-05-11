@@ -7,16 +7,23 @@ use App\Core\View\View;
 use App\Repository\CategoryRepository;
 use Exception;
 
+/**
+ * Base controller for public pages.
+ *
+ * Contains shared rendering logic and automatically provides
+ * navigation categories to every template.
+ */
 abstract readonly class BaseController
 {
     public function __construct(
         protected View               $view = new View(),
         protected CategoryRepository $categoryRepository = new CategoryRepository(),
-    )
-    {
+    ) {
     }
 
     /**
+     * Renders a Smarty template with shared layout data.
+     *
      * @param array<string, mixed> $data
      *
      * @throws Exception
@@ -32,6 +39,8 @@ abstract readonly class BaseController
     }
 
     /**
+     * Renders a reusable 404 error page.
+     *
      * @throws Exception
      */
     protected function notFound(string $message = 'The page you are looking for does not exist.'): Response
