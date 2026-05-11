@@ -3,25 +3,24 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 32px;
-}
 
-.pagination a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 42px;
-  height: 42px;
-  padding: 0 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  color: var(--color-muted);
-  font-weight: 700;
-}
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-weight: 700;
 
-.pagination a:hover,
-.pagination a.is-active {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
-  color: #ffffff;
+    &:hover, &.is-active {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+  }
 }

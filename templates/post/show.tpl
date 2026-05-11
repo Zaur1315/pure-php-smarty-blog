@@ -1,50 +1,71 @@
 {extends file="layouts/base.tpl"}
 
-{block name='content'}
-    <article>
-        <h1>{$post.title}</h1>
+{block name="content"}
+    <article class="post-page">
+        <div class="container container--narrow">
+            <header class="post-page__header">
+                <h1>{$post.title}</h1>
 
-        <p>
-            <small>
-                Views: {$post.views} |
-                Published: {$post.published_at}
-            </small>
-        </p>
+                <div class="post-page__meta">
+                    <span>{$post.published_at}</span>
+                    <span>{$post.views} views</span>
+                </div>
+            </header>
 
-        {if $post.description}
-            <p>{$post.description}</p>
-        {/if}
+            {if $post.image}
+                <figure class="post-page__image">
+                    <img src="{$post.image}" alt="{$post.title|escape}">
+                </figure>
+            {/if}
 
-        <hr>
+            {if $post.description}
+                <p class="post-page__description">
+                    {$post.description}
+                </p>
+            {/if}
 
-        <div>
-            {$post.content}
+            <div class="post-page__content">
+                {$post.content nofilter}
+            </div>
         </div>
     </article>
-    <h2>Related posts</h2>
     {if $relatedPosts|count > 0}
-        <ul>
-            {foreach from=$relatedPosts item=relatedPost}
-                <li>
-                    <h3>
-                        <a href="/post/{$relatedPost.slug}">
-                            {$relatedPost.title}
-                        </a>
-                    </h3>
+        <section class="related-posts">
+            <div class="container">
+                <div class="related-posts__header">
+                    <h2>Related posts</h2>
+                    <p>More articles from similar categories.</p>
+                </div>
 
-                    <p>{$relatedPost.description}</p>
+                <div class="post-grid">
+                    {foreach from=$relatedPosts item=relatedPost}
+                        <article class="post-card">
+                            {if $relatedPost.image}
+                                <a href="/post/{$relatedPost.slug}" class="post-card__image">
+                                    <img src="{$relatedPost.image}" alt="{$relatedPost.title|escape}">
+                                </a>
+                            {/if}
 
-                    <small>
-                        Views: {$relatedPost.views} |
-                        Published: {$relatedPost.published_at}
-                    </small>
-                </li>
-            {/foreach}
-        </ul>
-    {else}
-        <p>No related posts found.</p>
+                            <div class="post-card__body">
+                                <h3>
+                                    <a href="/post/{$relatedPost.slug}">
+                                        {$relatedPost.title}
+                                    </a>
+                                </h3>
+
+                                {if $relatedPost.description}
+                                    <p>{$relatedPost.description}</p>
+                                {/if}
+
+                                <div class="post-card__meta">
+                                    <span>{$relatedPost.published_at}</span>
+                                    <span>{$relatedPost.views} views</span>
+                                </div>
+                            </div>
+                        </article>
+                    {/foreach}
+                </div>
+            </div>
+        </section>
     {/if}
-    <p>
-        <a href="/">Back to home</a>
-    </p>
 {/block}

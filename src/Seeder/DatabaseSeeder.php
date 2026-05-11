@@ -8,8 +8,6 @@ use App\Core\Database\Database;
 
 final class DatabaseSeeder
 {
-    private const POSTS_PER_CATEGORY = 6;
-
     public function run(): void
     {
         $database = Database::getInstance();
@@ -30,6 +28,12 @@ final class DatabaseSeeder
                     'Simple Routing Without Frameworks',
                     'Using PDO Safely',
                     'Building a Mini MVC Application',
+                    'PHP Error Handling Basics',
+                    'Composer Autoload Explained',
+                    'Writing Clean PHP Functions',
+                    'Understanding PHP Visibility',
+                    'Simple Dependency Management',
+                    'PHP Project Structure Tips',
                 ],
             ],
             [
@@ -43,6 +47,12 @@ final class DatabaseSeeder
                     'Understanding JOIN Types',
                     'Pagination with LIMIT and OFFSET',
                     'Designing Blog Database Schema',
+                    'Using Foreign Keys Correctly',
+                    'Filtering Data with WHERE',
+                    'Sorting Results with ORDER BY',
+                    'Counting Rows in MySQL',
+                    'Simple Data Seeding Strategy',
+                    'Optimizing Basic SQL Queries',
                 ],
             ],
             [
@@ -56,6 +66,12 @@ final class DatabaseSeeder
                     'Building a Simple Header',
                     'Typography for Blog Pages',
                     'Using jQuery Carefully',
+                    'Creating Reusable UI Blocks',
+                    'Styling Pagination Links',
+                    'Mobile First Layout Tips',
+                    'Organizing Frontend Assets',
+                    'Simple Blog Card Design',
+                    'Working with Image Ratios',
                 ],
             ],
         ];

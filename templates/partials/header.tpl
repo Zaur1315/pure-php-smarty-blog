@@ -1,6 +1,7 @@
 <header class="site-header">
     <div class="container site-header__inner">
         <a href="/" class="site-header__logo">
+            <img src="/assets/images/logo.png" alt="Pure Blog">
             Pure Blog
         </a>
 

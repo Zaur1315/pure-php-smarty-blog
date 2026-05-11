@@ -33,12 +33,12 @@ final readonly class CategoryController extends BaseController
             return $this->notFound('Category not found');
         }
 
-        $page = max((int)$request->query('page', self::DEFAULT_PAGE), self::DEFAULT_PAGE);
-        $sort = (string)$request->query('sort', self::DEFAULT_SORT);
-        $direction = (string)$request->query('direction', self::DEFAULT_DIRECTION);
+        $page = max((int) $request->query('page', self::DEFAULT_PAGE), self::DEFAULT_PAGE);
+        $sort = (string) $request->query('sort', self::DEFAULT_SORT);
+        $direction = (string) $request->query('direction', self::DEFAULT_DIRECTION);
 
         $totalPosts = $this->postRepository->countByCategorySlug($slug);
-        $totalPages = (int)ceil($totalPosts / self::PER_PAGE);
+        $totalPages = (int) ceil($totalPosts / self::PER_PAGE);
         $offset = ($page - 1) * self::PER_PAGE;
 
         return $this->render('category/show.tpl', [
@@ -46,7 +46,7 @@ final readonly class CategoryController extends BaseController
             'category' => $category,
             'posts' => $this->postRepository->findByCategorySlugPaginated(
                 $slug,
-                $page,
+                self::PER_PAGE,
                 $offset,
                 $sort,
                 $direction

@@ -30,16 +30,32 @@
 
   .filter-bar {
     align-items: stretch;
-  }
 
-  .filter-bar label,
-  .filter-bar select,
-  .filter-bar .button {
-    width: 100%;
+    label, select, .button {
+      width: 100%;
+    }
   }
 
   .post-page__content {
     padding: 22px;
+  }
+
+  .hero-slider {
+    &__slide {
+      grid-template-columns: 1fr;
+    }
+
+    &__content {
+      padding: 28px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    &__image {
+      min-height: 240px;
+    }
   }
 }
 

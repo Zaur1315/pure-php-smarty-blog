@@ -3,10 +3,65 @@
 {block name="content"}
     <section class="home-page">
         <div class="container">
-            <div class="page-heading">
-                <h1>{$title|default:'Blog'}</h1>
-                <p>Latest articles by category</p>
-            </div>
+            {if isset($sliderPosts) && $sliderPosts|count > 0}
+                <section class="hero-slider js-hero-slider">
+                    <div class="hero-slider__track">
+                        {foreach from=$sliderPosts item=sliderPost name=sliderLoop}
+                            <article class="hero-slider__slide {if $smarty.foreach.sliderLoop.first}is-active{/if}">
+                                <div class="hero-slider__content">
+                        <span class="hero-slider__category">
+                            {$sliderPost.category_name}
+                        </span>
+
+                                    <h2>{$sliderPost.title}</h2>
+
+                                    {if $sliderPost.description}
+                                        <p>{$sliderPost.description}</p>
+                                    {/if}
+
+                                    <div class="hero-slider__meta">
+                                        <span>{$sliderPost.views} views</span>
+                                        <span>{$sliderPost.published_at}</span>
+                                    </div>
+
+                                    <a href="/post/{$sliderPost.slug}" class="button">
+                                        Read article
+                                    </a>
+                                </div>
+
+                                {if $sliderPost.image}
+                                    <div class="hero-slider__image">
+                                        <img src="{$sliderPost.image}" alt="{$sliderPost.title|escape}">
+                                    </div>
+                                {/if}
+                            </article>
+                        {/foreach}
+                    </div>
+
+                    {if $sliderPosts|count > 1}
+                        <div class="hero-slider__controls">
+                            <button type="button" class="hero-slider__button js-hero-slider-prev">
+                                Previous
+                            </button>
+
+                            <div class="hero-slider__dots">
+                                {foreach from=$sliderPosts item=sliderPost name=dotsLoop}
+                                    <button
+                                            type="button"
+                                            class="hero-slider__dot js-hero-slider-dot {if $smarty.foreach.dotsLoop.first}is-active{/if}"
+                                            data-slide-index="{$smarty.foreach.dotsLoop.index}"
+                                            aria-label="Go to slide {$smarty.foreach.dotsLoop.iteration}"
+                                    ></button>
+                                {/foreach}
+                            </div>
+
+                            <button type="button" class="hero-slider__button js-hero-slider-next">
+                                Next
+                            </button>
+                        </div>
+                    {/if}
+                </section>
+            {/if}
 
             {foreach from=$categories item=category}
                 <section class="category-section">

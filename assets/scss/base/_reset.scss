@@ -6,22 +6,22 @@
 
 html {
   min-height: 100%;
-}
 
-body {
-  min-height: 100%;
-  margin: 0;
-  background: var(--color-body);
-  color: var(--color-text);
-  font-family: var(--font-base);
-}
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: var(--color-body);
+    color: var(--color-text);
+    font-family: var(--font-base), sans-serif;
+  }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+  img {
+    display: block;
+    max-width: 100%;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
