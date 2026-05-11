@@ -1,0 +1,32 @@
+.error-page {
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+
+  &__card {
+    padding: 56px 40px;
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  &__code {
+    display: inline-flex;
+    margin-bottom: 18px;
+    color: var(--color-primary);
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin-bottom: 14px;
+  }
+
+  p {
+    max-width: 520px;
+    margin: 0 auto 28px;
+  }
+}

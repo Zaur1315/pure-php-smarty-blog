@@ -34,7 +34,7 @@ abstract readonly class BaseController
     /**
      * @throws Exception
      */
-    protected function notFound(string $message = 'Page not found'): Response
+    protected function notFound(string $message = 'The page you are looking for does not exist.'): Response
     {
         return $this->render('error/404.tpl', [
             'title' => '404',

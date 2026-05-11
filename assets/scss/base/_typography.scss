@@ -27,13 +27,14 @@ p {
 
 .page {
   padding: 48px 0;
+  flex: 1;
 }
 
 .page-heading {
   margin-bottom: 32px;
-}
 
-.page-heading p {
-  max-width: 720px;
-  margin-bottom: 0;
+  p {
+    max-width: 720px;
+    margin-bottom: 0;
+  }
 }
