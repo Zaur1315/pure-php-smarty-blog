@@ -1,6 +1,7 @@
 .env
 .idea/
 
+/node_modules
 /vendor/
 /storage/cache/*
 /storage/logs/*
@@ -11,3 +12,5 @@
 !/storage/logs/.gitkeep
 !/storage/smarty/cache/.gitkeep
 !/storage/smarty/compile/.gitkeep
+
+package-lock.json

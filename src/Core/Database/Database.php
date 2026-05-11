@@ -9,6 +9,12 @@ use PDOException;
 use PDOStatement;
 use RuntimeException;
 
+/**
+ * Simple PDO database wrapper.
+ *
+ * Provides a shared database connection and helper methods
+ * for executing queries and fetching results.
+ */
 final class Database
 {
     private static ?self $instance = null;
@@ -42,6 +48,9 @@ final class Database
         }
     }
 
+    /**
+     * Returns the shared database instance.
+     */
     public static function getInstance(): self
     {
         if (self::$instance === null) {
@@ -51,11 +60,9 @@ final class Database
         return self::$instance;
     }
 
-    public function connection(): PDO
-    {
-        return $this->connection;
-    }
-
+    /**
+     * Prepares and executes an SQL query with optional parameters.
+     */
     public function query(string $sql, array $params = []): PDOStatement
     {
         $statement = $this->connection->prepare($sql);
@@ -64,15 +71,33 @@ final class Database
         return $statement;
     }
 
+    /**
+     * Fetches all rows from a query result.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function fetchAll(string $sql, array $params = []): array
     {
         return $this->query($sql, $params)->fetchAll();
     }
 
+    /**
+     * Fetches a single row or returns null when nothing is found.
+     *
+     * @return array<string, mixed>|null
+     */
     public function fetchOne(string $sql, array $params = []): ?array
     {
         $result = $this->query($sql, $params)->fetch();
 
         return $result === false ? null : $result;
+    }
+
+    /**
+     * Returns the last inserted database ID.
+     */
+    public function lastInsertId(): string
+    {
+        return $this->connection->lastInsertId();
     }
 }

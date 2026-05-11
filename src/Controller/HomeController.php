@@ -1,31 +1,36 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Core\Http\Request;
 use App\Core\Http\Response;
-use App\Core\View\View;
-use App\Repository\CategoryRepository;
-use Smarty\Exception;
+use App\Repository\PostRepository;
 
-final class HomeController
+/**
+ * Handles the blog home page.
+ *
+ * Loads categories with latest posts and prepares posts for the hero slider.
+ */
+final readonly class HomeController extends BaseController
 {
+    public function __construct(
+        private readonly PostRepository $postRepository = new PostRepository(),
+    ) {
+        parent::__construct();
+    }
+
     /**
-     * @throws Exception
+     * Displays the home page.
+     *
+     * @throws /Exception
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $view = new View();
-        $categoryRepository = new CategoryRepository();
-
-        $categories = $categoryRepository->findWithLatestPosts();
-
-        return new Response(
-            $view->render('home/index.tpl', [
-                'title' => 'Home',
-                'categories' => $categories,
-            ])
-        );
+        return $this->render('home/index.tpl', [
+            'title' => 'Home',
+            'categories' => $this->categoryRepository->findWithLatestPosts(),
+            'sliderPosts' => $this->postRepository->findLeastViewedPostsByCategories(),
+        ]);
     }
 }

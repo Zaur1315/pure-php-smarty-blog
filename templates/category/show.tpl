@@ -1,57 +1,95 @@
-<h1>{$category.name}</h1>
+{extends file="layouts/base.tpl"}
 
-{if $category.description}
-    <p>{$category.description}</p>
-{/if}
+{block name="content"}
+    <section class="category-page">
+        <div class="container">
+            <div class="page-heading">
+                <h1>{$category.name}</h1>
 
-<hr>
+                {if $category.description}
+                    <p>{$category.description}</p>
+                {/if}
+            </div>
 
-<div>
-    <strong>Sort by:</strong>
+            <form method="get" class="filter-bar">
+                <label>
+                    Sort by
+                    <select name="sort">
+                        <option value="published_at" {if $sort === 'published_at'}selected{/if}>Date</option>
+                        <option value="views" {if $sort === 'views'}selected{/if}>Views</option>
+                        <option value="title" {if $sort === 'title'}selected{/if}>Title</option>
+                    </select>
+                </label>
 
-    <a href="/category/{$category.slug}?sort=published_at&direction=DESC">Newest</a> |
-    <a href="/category/{$category.slug}?sort=views&direction=DESC">Most viewed</a> |
-    <a href="/category/{$category.slug}?sort=title&direction=ASC">Title A-Z</a>
-</div>
+                <label>
+                    Direction
+                    <select name="direction">
+                        <option value="desc" {if $direction === 'desc'}selected{/if}>Desc</option>
+                        <option value="asc" {if $direction === 'asc'}selected{/if}>Asc</option>
+                    </select>
+                </label>
 
-<hr>
+                <button type="submit" class="button">
+                    Apply
+                </button>
+            </form>
 
-{if $posts|count > 0}
-    <ul>
-        {foreach from=$posts item=post}
-            <li>
-                <h2>
-                    <a href="/post/{$post.slug}">{$post.title}</a>
-                </h2>
-                <p>{$post.description}</p>
+            {if $posts|count > 0}
+                <div class="post-grid">
+                    {foreach from=$posts item=post}
+                        <article class="post-card">
+                            {if $post.image}
+                                <a href="/post/{$post.slug}" class="post-card__image">
+                                    <img src="{$post.image}" alt="{$post.title|escape}">
+                                </a>
+                            {/if}
 
-                <small>
-                    Views: {$post.views} |
-                    Published: {$post.published_at}
-                </small>
-            </li>
-        {/foreach}
-    </ul>
-{else}
-    <p>No posts found.</p>
-{/if}
+                            <div class="post-card__body">
+                                <h2>
+                                    <a href="/post/{$post.slug}">
+                                        {$post.title}
+                                    </a>
+                                </h2>
 
-{if $pagination.pages > 1}
-    <nav>
-        {section name=page start=1 loop=$pagination.pages+1}
-            {assign var=pageNumber value=$smarty.section.page.index}
+                                {if $post.description}
+                                    <p>{$post.description}</p>
+                                {/if}
 
-            {if $pageNumber == $pagination.page}
-                <strong>{$pageNumber}</strong>
+                                <div class="post-card__meta">
+                                    <span>{$post.published_at}</span>
+                                    <span>{$post.views} views</span>
+                                </div>
+                            </div>
+                        </article>
+                    {/foreach}
+                </div>
+                {if $totalPages > 1}
+                    <nav class="pagination">
+                        {if $currentPage > 1}
+                            <a href="?page={$currentPage - 1}&sort={$sort}&direction={$direction}">
+                                Previous
+                            </a>
+                        {/if}
+
+                        {section name=page start=1 loop=$totalPages + 1}
+                            <a
+                                    href="?page={$smarty.section.page.index}&sort={$sort}&direction={$direction}"
+                                    class="{if $smarty.section.page.index === $currentPage}is-active{/if}"
+                            >
+                                {$smarty.section.page.index}
+                            </a>
+                        {/section}
+
+                        {if $currentPage < $totalPages}
+                            <a href="?page={$currentPage + 1}&sort={$sort}&direction={$direction}">
+                                Next
+                            </a>
+                        {/if}
+                    </nav>
+                {/if}
             {else}
-                <a href="/category/{$category.slug}?page={$pageNumber}&sort={$sorting.sort}&direction={$sorting.direction}">
-                    {$pageNumber}
-                </a>
+                <p>No posts found in this category.</p>
             {/if}
-        {/section}
-    </nav>
-{/if}
-
-<p>
-    <a href="/">Back to home</a>
-</p>
+        </div>
+    </section>
+{/block}

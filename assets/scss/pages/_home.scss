@@ -1,0 +1,23 @@
+.category-section {
+  margin-bottom: 100px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+
+    h2 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
