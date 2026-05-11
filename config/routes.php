@@ -6,6 +6,14 @@ use App\Controller\HomeController;
 use App\Controller\PostController;
 use App\Core\Router\Router;
 
+/**
+ * Application routes registration.
+ *
+ * Defines all public blog routes:
+ * - home page
+ * - category page
+ * - post page
+ */
 return static function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/category/{slug}', [CategoryController::class, 'show']);

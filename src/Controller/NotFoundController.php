@@ -6,11 +6,17 @@ namespace App\Controller;
 
 use App\Core\Http\Request;
 use App\Core\Http\Response;
-use Smarty\Exception;
 
+/**
+ * Handles all unmatched routes.
+ *
+ * Used by the router as a fallback controller for 404 pages.
+ */
 final readonly class NotFoundController extends BaseController
 {
     /**
+     * Displays the default 404 page.
+     *
      * @throws /Exception
      */
     public function __invoke(Request $request): Response

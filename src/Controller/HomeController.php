@@ -7,6 +7,11 @@ namespace App\Controller;
 use App\Core\Http\Response;
 use App\Repository\PostRepository;
 
+/**
+ * Handles the blog home page.
+ *
+ * Loads categories with latest posts and prepares posts for the hero slider.
+ */
 final readonly class HomeController extends BaseController
 {
     public function __construct(
@@ -16,6 +21,8 @@ final readonly class HomeController extends BaseController
     }
 
     /**
+     * Displays the home page.
+     *
      * @throws /Exception
      */
     public function index(): Response
