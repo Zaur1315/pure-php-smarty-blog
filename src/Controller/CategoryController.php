@@ -6,62 +6,55 @@ namespace App\Controller;
 
 use App\Core\Http\Request;
 use App\Core\Http\Response;
-use App\Core\View\View;
-use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
-use Smarty\Exception;
 
-final class CategoryController
+final readonly class CategoryController extends BaseController
 {
+    private const DEFAULT_PAGE = 1;
+    private const DEFAULT_SORT = 'published_at';
+    private const DEFAULT_DIRECTION = 'desc';
+    private const PER_PAGE = 6;
+
+    public function __construct(
+        private PostRepository $postRepository = new PostRepository(),
+    )
+    {
+        parent::__construct();
+    }
+
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function show(Request $request, string $slug): Response
     {
-        $view = new View();
-
-        $categoryRepository = new CategoryRepository();
-        $postRepository = new PostRepository();
-
-        $category = $categoryRepository->findBySlug($slug);
+        $category = $this->categoryRepository->findBySlug($slug);
 
         if ($category === null) {
-            return new Response('Category not found', 404);
+            return $this->notFound('Category not found');
         }
 
-        $page = max(1, (int)$request->query('page', 1));
-        $limit = 5;
-        $offset = ($page - 1) * $limit;
+        $page = max((int) $request->query('page', self::DEFAULT_PAGE), self::DEFAULT_PAGE);
+        $sort = (string) $request->query('sort', self::DEFAULT_SORT);
+        $direction = (string) $request->query('direction', self::DEFAULT_DIRECTION);
 
-        $sort = (string)$request->query('sort', 'published_at');
-        $direction = (string)$request->query('direction', 'DESC');
+        $totalPosts = $this->postRepository->countByCategorySlug($slug);
+        $totalPages = (int) ceil($totalPosts / self::PER_PAGE);
+        $offset = ($page - 1) * self::PER_PAGE;
 
-        $total = $postRepository->countByCategorySlug($slug);
-        $pages = (int)ceil($total / $limit);
-
-        $posts = $postRepository->findByCategorySlugPaginated(
-            $slug,
-            $limit,
-            $offset,
-            $sort,
-            $direction
-        );
-
-        return new Response(
-            $view->render('category/show.tpl', [
-                'category' => $category,
-                'posts' => $posts,
-                'pagination' => [
-                    'page' => $page,
-                    'pages' => $pages,
-                    'total' => $total,
-                    'limit' => $limit,
-                ],
-                'sorting' => [
-                    'sort' => $sort,
-                    'direction' => strtoupper($direction) === 'ASC' ? 'ASC' : 'DESC',
-                ],
-            ])
-        );
+        return $this->render('category/show.tpl', [
+            'title' => $category['name'],
+            'category' => $category,
+            'posts' => $this->postRepository->findByCategorySlugPaginated(
+                $slug,
+                self::PER_PAGE,
+                $offset,
+                $sort,
+                $direction
+            ),
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'sort' => $sort,
+            'direction' => $direction,
+        ]);
     }
 }

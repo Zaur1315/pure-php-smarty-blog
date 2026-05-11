@@ -6,37 +6,34 @@ namespace App\Controller;
 
 use App\Core\Http\Request;
 use App\Core\Http\Response;
-use App\Core\View\View;
 use App\Repository\PostRepository;
-use Smarty\Exception;
 
-final class PostController
+final readonly class PostController extends BaseController
 {
+    public function __construct(
+        private PostRepository $postRepository = new PostRepository(),
+    )
+    {
+        parent::__construct();
+    }
+
     /**
-     * @throws Exception
+     * @throws /Exception
      */
     public function show(Request $request, string $slug): Response
     {
-        $view = new View();
-        $postRepository = new PostRepository();
-
-        $post = $postRepository->findBySlug($slug);
+        $post = $this->postRepository->findBySlug($slug);
 
         if ($post === null) {
-            return new Response('Post not found', 404);
+            return $this->notFound('Post not found');
         }
 
-        $postRepository->incrementViews((int)$post['id']);
+        $this->postRepository->incrementViews((int)$post['id']);
 
-        $post = $postRepository->findBySlug($slug);
-
-        $relatedPosts = $postRepository->findRelatedPosts((int)$post['id']);
-
-        return new Response(
-            $view->render('post/show.tpl', [
-                'post' => $post,
-                'relatedPosts' => $relatedPosts,
-            ])
-        );
+        return $this->render('post/show.tpl', [
+            'title' => $post['title'],
+            'post' => $post,
+            'relatedPosts' => $this->postRepository->findRelatedPosts((int)$post['id']),
+        ]);
     }
 }

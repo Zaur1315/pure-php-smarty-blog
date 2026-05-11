@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Router;
 
+use App\Controller\NotFoundController;
 use App\Core\Http\Request;
 use App\Core\Http\Response;
 
@@ -41,7 +42,7 @@ final class Router
             return $this->callAction($action, $request, $params);
         }
 
-        return new Response('404 Not Found', 404);
+        return $this->callAction([NotFoundController::class, '__invoke'], $request);
     }
 
     private function matchRoute(string $routeUri, string $requestUri): ?array
@@ -62,7 +63,7 @@ final class Router
 
     private function callAction(callable|array $action, Request $request, array $params = []): Response
     {
-        $arguments = array_merge([$request], $params);
+        $arguments = array_merge([$request], array_values($params));
 
         if (is_callable($action)) {
             $response = call_user_func_array($action, $arguments);
